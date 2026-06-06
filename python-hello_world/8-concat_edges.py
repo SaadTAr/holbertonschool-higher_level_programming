@@ -1,2 +1,3 @@
 #!/usr/bin/python3
-print("object-oriented programming with {}".format(str))
+str = "Python is an interpreted, interactive, object-oriented programming language that combines remarkable power with very clear syntax"
+print(f"{str[39:67]} {str[107:112]} {str[:6]}")
