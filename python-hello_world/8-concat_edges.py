@@ -1,3 +1,3 @@
 #!/usr/bin/python3
-word = "Python"
-print("Object-oriented programming with {}{}{}".format(word[:3], word[-2:], word[3:-2]))
+str = "Python"
+print(str[1:4] + str[-2:] + str[0] + str[5])
