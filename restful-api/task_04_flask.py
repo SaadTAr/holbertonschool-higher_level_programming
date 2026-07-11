@@ -6,11 +6,8 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-# Sample initial dataset (as per previous requirements of the task context)
-users = {
-    "alice": {"username": "alice", "name": "Alice", "age": 25, "city": "San Francisco"},
-    "bob": {"username": "bob", "name": "Bob", "age": 30, "city": "New York"}
-}
+# Start with an empty dictionary as required by the test runner initial setup
+users = {}
 
 
 @app.route('/')
@@ -21,8 +18,10 @@ def home():
 
 @app.route('/data')
 def get_data():
-    """Returns a list of all usernames."""
-    return jsonify(list(users.keys()))
+    """
+    Returns the dictionary containing all users information.
+    """
+    return jsonify(users)
 
 
 @app.route('/status')
@@ -54,7 +53,6 @@ def add_user():
     except Exception:
         return jsonify({"error": "Invalid JSON"}), 400
 
-    # Handle case where get_json() might return None (e.g., empty string body)
     if data is None:
         return jsonify({"error": "Invalid JSON"}), 400
 
@@ -67,18 +65,16 @@ def add_user():
     if username in users:
         return jsonify({"error": "Username already exists"}), 409
 
-    # 4. Extract other user fields and construct user object
+    # 4. Extract and save user details
     new_user = {
         "username": username,
         "name": data.get('name'),
         "age": data.get('age'),
         "city": data.get('city')
     }
-
-    # Save to our "database"
     users[username] = new_user
 
-    # Return success response with 201 Created status
+    # Success response
     response = {
         "message": "User added",
         "user": new_user
